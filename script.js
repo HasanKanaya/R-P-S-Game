@@ -3,6 +3,8 @@ let myTurnNumber = 0;
 let botTurn = Math.floor(Math.random() * 3 + 1);
 let myElement = document.querySelector(".rock").cloneNode(true);
 let myText = "";
+let you = 0;
+let bot = 0;
 
 if (botTurn == 1) {
   myElement = document.querySelector(".rock").cloneNode(true);
@@ -12,6 +14,20 @@ if (botTurn == 1) {
   myElement = document.querySelector(".scissors").cloneNode(true);
 }
 
+if (localStorage.getItem("player") != null) {
+  you = localStorage.getItem("player");
+  bot = localStorage.getItem("bot");
+}
+
+document.querySelector(".you").innerHTML = you;
+document.querySelector(".bot").innerHTML = bot;
+document.querySelector(".resetScore").addEventListener("click", () => {
+  document.querySelector(".you").innerHTML = 0;
+  document.querySelector(".bot").innerHTML = 0;
+  you = 0;
+  bot = 0;
+  localStorage.clear();
+});
 myTurn.forEach(function (ele) {
   ele.addEventListener("click", function () {
     myTurn.forEach(function (el) {
@@ -37,6 +53,18 @@ myTurn.forEach(function (ele) {
     }
 
     console.log(myText);
+    if (myText == "You Win") {
+      you++;
+    } else if (myText == "You Lose") {
+      bot++;
+    } else {
+      you++;
+      bot++;
+    }
+
+    localStorage.clear();
+    localStorage.setItem("player", you);
+    localStorage.setItem("bot", bot);
     document.querySelector(
       ".statue"
     ).innerHTML = `${myText} <br> <div class="btn text-warning m-3">Play again ?</div>`;
