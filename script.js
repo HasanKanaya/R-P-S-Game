@@ -65,6 +65,8 @@ myTurn.forEach(function (ele) {
     localStorage.clear();
     localStorage.setItem("player", you);
     localStorage.setItem("bot", bot);
+    document.querySelector(".you").innerHTML = you;
+    document.querySelector(".bot").innerHTML = bot;
     document.querySelector(
       ".statue"
     ).innerHTML = `${myText} <br> <div class="btn text-warning m-3">Play again ?</div>`;
